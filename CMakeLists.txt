@@ -1,38 +1,30 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 project(ros_upgrade_example)
 
-find_package(catkin REQUIRED COMPONENTS
-find_package(message_generation)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
 
-find_package(rospy REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 
-catkin_python_setup()
-
-## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  ExampleMsg.msg
+## Generate actions, messages and services
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/ExampleMsg.msg"
+  DEPENDENCIES
+  std_msgs
 )
 
-## Generate added messages and services with any dependencies listed here
- generate_messages(
-   DEPENDENCIES
-   std_msgs
- )
+ament_export_dependencies(rosidl_default_runtime)
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ros_upgrade_example
-#  CATKIN_DEPENDS rospy std_msgs
-#  DEPENDS system_lib
-)
-
-include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
-)
+install(PROGRAMS ${PROJECT_NAME}/upgrade_example.py
+  DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  DESTINATION share/${PROJECT_NAME}
 )
+
+ament_export_dependencies(ament_cmake)
+ament_export_dependencies(ament_cmake_python)
+
+ament_package()
