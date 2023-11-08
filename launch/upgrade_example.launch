@@ -1,0 +1,7 @@
+<launch>
+    <arg name="namespace" default="" />
+
+    <node ns="$(arg namespace)" name="upgrade_example" pkg="ros_upgrade_example" type="upgrade_example.py" output="screen">
+        <param name="~message_prefix" value="Parameter from launch file" />
+    </node>
+</launch>
