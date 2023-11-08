@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(ros_upgrade_example)
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin REQUIRED COMPONENTS)
 find_package(message_generation)
 
 find_package(rospy REQUIRED)
